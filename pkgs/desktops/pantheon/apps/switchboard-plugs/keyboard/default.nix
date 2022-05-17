@@ -23,13 +23,13 @@
 
 stdenv.mkDerivation rec {
   pname = "switchboard-plug-keyboard";
-  version = "2.7.0";
+  version = "3.0.0";
 
   src = fetchFromGitHub {
     owner = "elementary";
     repo = pname;
     rev = version;
-    sha256 = "sha256-ge87rctbd7iR9x9Xq4sMIC09DiPHbpbWBgMZUuJNWbw=";
+    sha256 = "sha256-mhNNDSRt77MCnoO3V7eB1qPOXCfEFoDPQB8j/yTSco8=";
   };
 
   patches = [
