@@ -14,6 +14,7 @@
 , zenity
 , libcanberra
 , ninja
+, xvfb-run
 , xkeyboard_config
 , libxkbfile
 , libXdamage
@@ -41,30 +42,20 @@
 , egl-wayland
 , graphene
 , wayland-protocols
-, pantheon
 }:
 
 let self = stdenv.mkDerivation rec {
   pname = "mutter";
-  version = "3.38.6";
+  version = "42.4";
 
   outputs = [ "out" "dev" "man" ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/mutter/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
-    sha256 = "0mxln9azl4krmknq2vmhd15lgpa2q7gh7whiv14nsqbr9iaxmg2x";
+    url = "mirror://gnome/sources/mutter/${lib.versions.major version}/${pname}-${version}.tar.xz";
+    sha256 = "wix/o9GHBh2/KAw4UOEYt7UAkGXQHeMWFqzVAMSYKkA=";
   };
 
   patches = [
-    # Drop inheritable cap_sys_nice, to prevent the ambient set from leaking
-    # from mutter/gnome-shell, see https://github.com/NixOS/nixpkgs/issues/71381
-    ./drop-inheritable.patch
-
-    # Fixes issues for users of mutter like in gala.
-    # https://github.com/elementary/gala/issues/605
-    # https://gitlab.gnome.org/GNOME/mutter/issues/536
-    ./fix-glitches-in-gala.patch
-
     (substituteAll {
       src = ./fix-paths.patch;
       inherit zenity;
@@ -96,6 +87,7 @@ let self = stdenv.mkDerivation rec {
     mesa # needed for gbm
     meson
     ninja
+    xvfb-run
     pkg-config
     python3
     wrapGAppsHook
@@ -140,7 +132,7 @@ let self = stdenv.mkDerivation rec {
   PKG_CONFIG_UDEV_UDEVDIR = "${placeholder "out"}/lib/udev";
 
   passthru = {
-    libdir = "${self}/lib/mutter-7";
+    libdir = "${self}/lib/mutter-10";
 
     tests = {
       libdirExists = runCommand "mutter-libdir-exists" {} ''
