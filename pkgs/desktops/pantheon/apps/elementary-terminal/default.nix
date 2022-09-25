@@ -29,6 +29,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-qxjHrlpdJcfXEUan/JgU7HqBRdB36gxAb5xmd/ySsj0=";
   };
 
+  patches = [
+    # Terminal freezes when closing with the close button
+    # https://github.com/elementary/terminal/issues/688
+    ./waitpid-when-term-ps.patch
+  ];
+
   nativeBuildInputs = [
     desktop-file-utils
     meson

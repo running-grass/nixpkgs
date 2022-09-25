@@ -1,0 +1,11 @@
+diff --git a/src/Widgets/TerminalWidget.vala b/src/Widgets/TerminalWidget.vala
+index 63341221..51a32ae1 100644
+--- a/src/Widgets/TerminalWidget.vala
++++ b/src/Widgets/TerminalWidget.vala
+@@ -312,6 +312,7 @@ namespace Terminal {
+                 Posix.kill (this.child_pid, Posix.Signal.HUP);
+                 Posix.kill (this.child_pid, Posix.Signal.TERM);
+                 Thread.usleep (100);
++                Posix.waitpid (this.child_pid, null, 0);
+             }
+         }
