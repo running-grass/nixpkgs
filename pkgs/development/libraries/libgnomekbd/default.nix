@@ -29,6 +29,7 @@ stdenv.mkDerivation rec {
     pkg-config
     wrapGAppsHook
     glib
+    gobject-introspection
   ];
 
   # Requires in libgnomekbd.pc
