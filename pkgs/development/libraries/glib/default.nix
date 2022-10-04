@@ -90,6 +90,14 @@ stdenv.mkDerivation (finalAttrs: {
     #    * gio-launch-desktop
     ./split-dev-programs.patch
 
+    # Fix build on Darwin
+    # https://gitlab.gnome.org/GNOME/glib/-/merge_requests/2914
+    (fetchpatch {
+      name = "gio-properly-guard-use-of-utimensat.patch";
+      url = "https://gitlab.gnome.org/GNOME/glib/-/commit/7f7171e68a420991b537d3e9e63263a0b2871618.patch";
+      sha256 = "kKEqmBqx/RlvFT3eixu+NnM7JXhHb34b9NLRfAt+9h0=";
+    })
+
     # https://gitlab.gnome.org/GNOME/glib/-/merge_requests/2866
     (fetchpatch {
       name = "tests-skip-g-file-info-test-if-atime-unsupported.patch";
