@@ -1,6 +1,7 @@
 { lib
 , stdenv
 , fetchFromGitHub
+, fetchpatch
 , nix-update-script
 , meson
 , ninja
@@ -23,6 +24,15 @@ stdenv.mkDerivation rec {
     rev = version;
     sha256 = "sha256-qaPj/Qp7RYzHgElFdM8bHV42oiPUbCMTC9Q+MUj4Q6Y=";
   };
+
+  patches = [
+    # Fix warnings introduced by GNOME 40+
+    # https://github.com/elementary/default-settings/pull/263
+    (fetchpatch {
+      url = "https://github.com/elementary/default-settings/commit/83e5fff3732fc9bfaa31c053cb01244ae1378f8c.patch";
+      sha256 = "sha256-Jhee7dwoMJCP/HodiMOZVfxVvYvL7wlHyPhaSEKAua8=";
+    })
+  ];
 
   nativeBuildInputs = [
     accountsservice
