@@ -5,7 +5,6 @@
 , meson
 , ninja
 , pkg-config
-, python3
 , wrapGAppsHook4
 , gettext
 , gnome
@@ -52,6 +51,13 @@ stdenv.mkDerivation rec {
       url = "https://gitlab.gnome.org/World/Endeavour/-/commit/3bad03e90fcc28f6e3f87f2c90df5984dbeb0791.patch";
       sha256 = "sha256-HRkNfhn+EH0Fc+KBDdX1Q+T9QWSctTOn1cvecP2N0zo=";
     })
+
+    # build: Use GNOME module post_install()
+    # https://gitlab.gnome.org/World/Endeavour/-/merge_requests/135
+    (fetchpatch {
+      url = "https://gitlab.gnome.org/World/Endeavour/-/commit/a8daa1d8acd0a5da7aef54d6e16d8a585c71e555.patch";
+      sha256 = "sha256-zUTQ36eUMOY9ODAgwSKUhSlB9Cj0Yu/60KjFFW5fx2I=";
+    })
   ];
 
   nativeBuildInputs = [
@@ -59,7 +65,6 @@ stdenv.mkDerivation rec {
     ninja
     pkg-config
     gettext
-    python3
     wrapGAppsHook4
     itstool
   ];
@@ -81,11 +86,6 @@ stdenv.mkDerivation rec {
     librest # todoist
     json-glib # todoist
   ];
-
-  postPatch = ''
-    chmod +x build-aux/meson/meson_post_install.py
-    patchShebangs build-aux/meson/meson_post_install.py
-  '';
 
   passthru = {
     updateScript = gitUpdater {
