@@ -18,12 +18,19 @@
 let
   rev = "0b30d95c6de95b150d93ecee325b95e04ff09e46";
   python = python3.withPackages (ps: with ps; [
-    epc
-    orjson
-    paramiko
-    rapidfuzz
-    sexpdata
-    six
+    pandas
+    requests
+    sexpdata tld
+    pyqt6 pyqt6-sip
+    pyqt6-webengine epc lxml # for eaf
+    qrcode # eaf-file-browser
+    pysocks # eaf-browser
+    pymupdf # eaf-pdf-viewer
+    pypinyin # eaf-file-manager
+    psutil # eaf-system-monitor
+    retry # eaf-markdown-previewer
+    markdown
+
   ]);
 in
 melpaBuild {

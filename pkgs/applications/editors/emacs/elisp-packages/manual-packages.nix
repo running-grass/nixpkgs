@@ -23,6 +23,8 @@ in
 
   ebuild-mode = callPackage ./manual-packages/ebuild-mode { };
 
+  eaf = callPackage ./manual-packages/eaf { };
+
   el-easydraw = callPackage ./manual-packages/el-easydraw { };
 
   elisp-ffi = callPackage ./manual-packages/elisp-ffi { };
